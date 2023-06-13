@@ -60,6 +60,12 @@ class User
                 $_SESSION["surname"] = $userInfo["Surname"];
                 $_SESSION["lastname"] = $userInfo["Patronymic"];
                 $_SESSION["isAuth"] = 1;
+//                if($_SESSION["role"] == 2) {
+//                    $_SESSION["action"] = "profile_teacher.php";
+//                }
+//                else {
+//                    $_SESSION["action"] = "profile.php";
+//                }
                 return true;
             else:
                 return false;

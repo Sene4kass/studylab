@@ -1,3 +1,17 @@
+<?php
+    session_start();
+    include_once "db.php";
+    global $db;
+    if(!isset($_GET["action"])) {
+        header("Location:index.php");
+        exit("Ошибка запроса");
+    }
+    if(!isset($_SESSION) or $_SESSION["isAuth"] == 0) {
+        header("Location:index.php");
+        exit("Не выполнен вход");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,8 +83,19 @@
                 <div class="small_info">
                     <img class="small_ava_heaader" src="inc/img/ava_teacher.png" alt="">
                     <div class="wrapper_name_prioritety">
-                        <h4>Бадыль Дарья</h4>
-                        <p>Преподаватель</p>
+                        <h4><?php echo $_SESSION["name"].' '.$_SESSION["surname"]; ?></h4>
+                        <p>
+                            <?php
+                            $query = $db->prepare("SELECT `Role_name` FROM `role` WHERE `id_Role` = ?");
+                            $query->bind_param("i", $_SESSION["role"]);
+                            $query->execute();
+                            $result = $query->get_result();
+                            $userRole = $result->fetch_assoc();
+                            print($userRole["Role_name"]);
+
+                            ?>
+
+                        </p>
                     </div>
                     <button id="toggle-button">
                         <div class="arrow"></div>
@@ -88,18 +113,14 @@
                             <h4 class="link_logout"><a href="">Выйти</a></h4>
                         </div>
                     </div>
-                </div>
-                
-                
-
-
 
             </header>
 
             <div class="block_content _spsp" style="display: flex;justify-content: space-between;">
-                
+                <?php
+                    include_once $_GET["action"];
+                ?>
             </div>
-        </div>
 
         <script>
             function onEntry(entry) {

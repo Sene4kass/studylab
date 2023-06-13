@@ -25,7 +25,12 @@
         $login = $user->loginUser($_POST["login"],$_POST["password"]);
         if($login) {
             showNotification("Авторизация прошла успешно!");
-            header("Location: profile.php");
+            if($_SESSION["role"] == 2) {
+                header("Location: template.php?action=profile_teacher.php");
+            }
+            else{
+                header("Location: template.php?action=profile.php");
+            }
         }
         else {
             showNotification("Упс! Авторизация не удалась: перепроверьте введенные данные");
