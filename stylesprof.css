@@ -2046,6 +2046,18 @@ td {
     width: 160px;
 }
 
+.wrapper_radio_future_course {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.course_checkbox {
+    margin-left: 12px;
+}
+
 /* 
 #select-file-btn {
     width: 120px;
