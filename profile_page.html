@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesprof.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="menu_part">
+            <a class="home_link" href="">
+                <img class="small_logo" src="inc/img/logo_small.png">
+                <h2 class="name_logo">StudyLab</h2>
+            </a>
+            <nav>
+                <a class="nav_link main_link" href=""><img class="img_link_prof" src="inc/img/home_dafulut.png" alt=""> Главная</a>
+                <a class="nav_link courses_link" href=""><img class="img_link_prof" src="inc/img/courses_default.png" alt=""> Курсы</a>
+                <a class="nav_link dashbord_link" href=""><img class="img_link_prof" src="inc/img/dashboard_default.png" alt=""> Дашборд</a>
+                <a class="nav_link content_link" href=""><img class="img_link_prof" src="inc/img/content_icon_default.png" alt=""> Содержание</a>
+            </nav>
+            <script>
+
+                // do for every recorded object
+                function onEntry(entry) {
+                    entry.forEach(change => {
+                        if (change.isIntersecting) {
+                            change.target.classList.add('menu_part_show');
+                        }
+                    });
+                }
+                
+                // settings
+                let options = {
+                    root: null, // parent block
+                    rootMargin: '0px', // without margin
+                    threshold: 0.35 // procent of scrolled object
+                };
+            
+                // creating observer
+                let observer = new IntersectionObserver(onEntry, options);
+                let elements = document.querySelectorAll('.menu_part');
+                // tracking class on page
+                for (let elm of elements) {
+                    observer.observe(elm); // visor
+                }
+
+            </script>
+        </div>
+        <div class="main_content_part">
+            <header>
+                <h1 class="name_header_profile_page">Личный профиль</h1>
+
+
+                <div class="small_info">
+                    <img class="small_ava_heaader" src="inc/img/av.png" alt="">
+                    <div class="wrapper_name_prioritety">
+                        <h4>Иванов Павел</h4>
+                        <p>Учащийся</p>
+                    </div>
+                    <button id="toggle-button">
+                        <div class="arrow"></div>
+                        
+                    </button>
+                    <div id="window" style="display: none;opacity: 0;">
+                        <div class="small_window_line_1">
+                            <img src="inc/img/user_icon.png" class="us_ic" alt="">
+                            <h4 class="link_us_prof"><a href="">Личный профиль</a></h4>
+                        </div>
+
+                        <div class="horiz_line_menu"></div>
+
+                        <div class="small_window_line_2">
+                            <img src="inc/img/logout.png" class="logout_ic" alt="">
+                            <h4 class="link_logout"><a href="">Выйти</a></h4>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+
+
+            </header>
+
+            <div class="block_content">
+                <div class="wrapper_bio_courses">
+
+                    <div class="block_bio">
+                        <h1 class="toggle_info_name editable_toggle">Общая информация</h1>
+
+                        <div class="line_1_bio">
+                            <div class="left_part_img">
+
+                                <div class="wrapper_image_edit">
+                                    <img class="edit_ava_img" src="inc/img/ava_img.png" alt="">
+                                    <label for="file" class="file-input-button edit_img_inp">&#9998;</label>
+                                    <input type="file" id="file" class="file-input">
+                                    <!-- <input style="border: none !important;" class="edit_img_inp" type="file" value=""> -->
+                                </div>
+
+                            </div>
+                            <div class="right_part_privacy_data">
+
+                                <h4 class="bio_surname_title">Фамилия</h4>
+                                <div class="input-container">
+                                    <span class="icon">
+                                      <img src="inc/img/pers_data.png" alt="">
+                                    </span>
+                                    <input class="short_login_input" type="text" placeholder="Фамиллия" name="surname" required>
+                                </div>
+
+                                <h4 class="bio_name_title">Имя</h4>
+                                <div class="input-container">
+                                    <span class="icon">
+                                      <img src="inc/img/pers_data.png" alt="">
+                                    </span>
+                                    <input class="short_login_input" type="text" placeholder="Имя" name="name" required>
+                                </div>
+
+                                <h4 class="bio_fathername_title">Отчество</h4>
+                                <div class="input-container">
+                                    <span class="icon">
+                                      <img src="inc/img/pers_data.png" alt="">
+                                    </span>
+                                    <input class="short_login_input" type="text" placeholder="Отчество" name="father_name" required>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="line_2_bio">
+                            <h4 class="bio_email_title">E-mail</h4>
+                            <div class="input-container">
+                                <span class="icon">
+                                  <img src="inc/img/mail.png" alt="">
+                                </span>
+                                <input class="long_email_input" type="email" placeholder="Электронная почта" name="email" required>
+                            </div>
+
+                            <div class="wrapper_log_pass_area_bio">
+                                <div class="left_part_login_bio">
+                                    <h4 class="bio_login_title">Логин</h4>
+                                    <div class="input-container">
+                                        <span class="icon">
+                                          <img src="inc/img/pers_data.png" alt="">
+                                        </span>
+                                        <input class="short_login_input" type="text" placeholder="Логин" name="login" required>
+                                    </div>
+                                    <button class="save_changes_btn">Сохранить изменения</button>
+                                </div>
+                                <div class="right_part_pass_bio">
+                                    <h4 class="bio_password_title">Пароль</h4>
+                                    <div class="input-container">
+                                        <span class="icon">
+                                          <img src="inc/img/pers_data.png" alt="">
+                                        </span>
+                                        <input class="short_login_input" type="password" placeholder="Пароль" name="father_name" required>
+                                    </div>
+                                    <button class="cancel_changes_btn">Отмена</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="block_courses">
+                        <h1 class="my_courses_name  editable_toggle">Мои курсы</h1>
+                        <div class="courses_wrapper">
+                            <div class="course_block small_course">
+                                <img class="img_course small" src="inc/img/image_of_course.png" alt="">
+                                <div class="wrapper_small_courses">
+                                    <h3 class="title_course_small">UX/UI Дизайн</h3>
+                                    <p class="info_course small_p">Вы научитесь разрабатывать сайты, делать к ним интерфейс. Научитесь создавать дизайн для интернет-ресурсов, способный решить проблему пользователя</p>
+                                    <a href="" class="filled_btn link_to_course">Перейти к курсу</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function onEntry(entry) {
+                    entry.forEach(change => {
+                    if (change.isIntersecting) {
+                     change.target.classList.add('main_content_part_show');
+                    }
+                  });
+                }
+                
+                options_ = {
+                  threshold: [0.3]
+                };
+                observer = new IntersectionObserver(onEntry, options);
+                elements = document.querySelectorAll('.main_content_part');
+                
+                for (let elm of elements) {
+                  observer.observe(elm);
+                }
+
+
+
+
+
+                var toggleButton = document.getElementById('toggle-button');
+                var menuWindow = document.getElementById('window');
+
+                toggleButton.addEventListener('click', function() {
+                    if (menuWindow.style.display === 'none') {
+                      menuWindow.style.display = 'flex';
+                      positionWindow();
+                      setTimeout(function() {
+                        menuWindow.style.opacity = '1';
+                      }, 10);
+                    } else {
+                      menuWindow.style.opacity = '0';
+                      setTimeout(function() {
+                        menuWindow.style.display = 'none';
+                      }, 300);
+                    }
+                });
+
+                function positionWindow() {
+                  var buttonRect = toggleButton.getBoundingClientRect();
+                //   menuWindow.style.left = buttonRect.left + 'px';
+                }
+
+
+        </script>
+    </div>
+</body>
+</html>

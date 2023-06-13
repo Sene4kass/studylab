@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesprof.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="menu_part">
+            <a class="home_link" href="">
+                <img class="small_logo" src="inc/img/logo_small.png">
+                <h2 class="name_logo">StudyLab</h2>
+            </a>
+            <nav>
+                <a class="nav_link main_link" href=""><img class="img_link_prof" src="inc/img/home_dafulut.png" alt=""> Главная</a>
+                <a style="color: #5B34CA;" class="nav_link courses_link" href=""><img class="img_link_prof" src="inc/img/courses_active.png" alt=""> Курсы</a>
+                <a class="nav_link dashbord_link" href=""><img class="img_link_prof" src="inc/img/dashboard_default.png" alt=""> Дашборд</a>
+                <a class="nav_link content_link" href=""><img class="img_link_prof" src="inc/img/content_icon_default.png" alt=""> Содержание</a>
+            </nav>
+            <script>
+
+                // do for every recorded object
+                function onEntry(entry) {
+                    entry.forEach(change => {
+                        if (change.isIntersecting) {
+                            change.target.classList.add('menu_part_show');
+                        }
+                    });
+                }
+                
+                // settings
+                let options = {
+                    root: null, // parent block
+                    rootMargin: '0px', // without margin
+                    threshold: 0.35 // procent of scrolled object
+                };
+            
+                // creating observer
+                let observer = new IntersectionObserver(onEntry, options);
+                let elements = document.querySelectorAll('.menu_part');
+                // tracking class on page
+                for (let elm of elements) {
+                    observer.observe(elm); // visor
+                }
+
+            </script>
+        </div>
+        <div class="main_content_part">
+            <header>
+                <h1 class="name_header_profile_page">
+                    Компьютерные сети
+                    <button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown()"><div class="arrow"></div></button>
+                    <div class="dropdown-container">
+                      <ul id="dropdownList">
+                        <li>Элемент 1</li>
+                        <li>Элемент 2</li>
+                        <li>Элемент 3</li>
+                      </ul>
+                    </div>
+                </h1>
+
+                <div class="small_info">
+                    <img class="small_ava_heaader" src="inc/img/av.png" alt="">
+                    <div class="wrapper_name_prioritety">
+                        <h4>Иванов Павел</h4>
+                        <p>Учащийся</p>
+                    </div>
+                    <button id="toggle-button">
+                        <div class="arrow"></div>
+                        
+                    </button>
+                    <div id="window" style="display: none;opacity: 0;">
+                        <div class="small_window_line_1">
+                            <img src="inc/img/user_icon.png" class="us_ic" alt="">
+                            <h4 class="link_us_prof"><a href="">Линчый профиль</a></h4>
+                        </div>
+
+                        <div class="horiz_line_menu"></div>
+
+                        <div class="small_window_line_2">
+                            <img src="inc/img/logout.png" class="logout_ic" alt="">
+                            <h4 class="link_logout"><a href="">Выйти</a></h4>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+
+
+            </header>
+
+            <div class="block_content">
+
+                <div class="wrapper_slider">
+                  <button class="slider-prev" onclick="prevSlide()">&#10094;</button>
+                  <div class="slider-container">
+                    <div class="slider">
+                      <div class="slider-items">
+                            <button class="slider-item finished">Модуль 1</button>
+                            <div class="line_slider fin_line"></div>
+                            <button class="slider-item active">Модуль 2</button>
+                            <div class="line_slider"></div>
+                            <button class="slider-item blocked">Модуль 3</button>
+                            <div class="line_slider"></div>
+                            <button class="slider-item blocked">Модуль 4</button>
+                            <div class="line_slider"></div>
+                            <button class="slider-item blocked">Модуль 5</button>
+                            <div class="line_slider"></div>
+                            <button class="slider-item blocked">Модуль 6</button>
+                            <div class="line_slider"></div>
+                            <button class="slider-item blocked">Модуль 7</button> 
+                        </div>
+                    </div>
+                  </div>
+                  <button class="slider-next" onclick="nextSlide()">&#10095;</button>
+                </div>
+                
+                  
+                  
+                  
+                <div class="area_modules_statistics">
+                  <div class="left_part_modules">
+                    
+                    <div class="wrapper_course_modules">
+                      <img src="inc/img/image2.png" alt="" class="photo_module">
+                      <div class="area_inf_module">
+                        <h4 class="module_title">Ethernet на зарзделяемой среде. Коммутируеый Ethernet. Скоростный версии Ethernet</h4>
+                        <span><img src="inc/img/time_module.png" alt=""><p class="inf_module_set">Время изучения: 2ч 20мин</p></span>
+                        <span><img src="inc/img/dif_lawyer.png" alt=""><p class="inf_module_set">Уровень сложности: средний</p></span>
+                        <span><img src="inc/img/que.png" alt=""><p class="inf_module_set">Вопросов в тестировании: 30</p></span>
+                        <div class="wrapper_line_2_buttons">
+                          <button class="filled_btn big"><a href="">Начать изучение</a></button>
+                          <button class="unfilled_bgtn big" style="margin-left: 25px;"><a href="">Начать тестирование</a></button>
+                        </div>
+                     </div>
+                    </div>
+                    
+                    
+                    <div class="wrapper_course_modules">
+                      <img src="inc/img/image2.png" alt="" class="photo_module">
+                      <div class="area_inf_module">
+                        <h4 class="module_title">Изучение базовых функций Cisco IOS. Настройка коммутатора. Моделирование работы локальной сети</h4>
+                        <span><img src="inc/img/time_module.png" alt=""><p class="inf_module_set">Время изучения: 2ч 20мин</p></span>
+                        <span><img src="inc/img/dif_lawyerpng.png" alt=""><p class="inf_module_set">Уровень сложности: средний</p></span>
+                        <span><img src="inc/img/que.png" alt=""><p class="inf_module_set">Вопросов в тестировании: 30</p></span>
+                        <div class="wrapper_line_2_buttons">
+                          <button class="filled_btn big under_mark"><a href="">Начать изучение</a></button>
+                          <button class="unfilled_bgtn big under_mark" style="margin-left: 25px;"><a href="">Начать тестирование</a></button>
+                        </div>
+                     </div>
+                     <div class="disabled_mask"></div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="right_part_statistics">
+                    <div class="wrapper_course_progress_stat">
+                      <h2 class="ready__">Выполнение курса</h2>
+                      <div class="test_wrapper_progress">
+                        <div class="progress_status">
+                          <h2>67%</h2>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="wrapper_course_progress_stat">
+                      <h2 class="ready__">Результативность</h2>
+                      <div class="test_wrapper_progress test_spec">
+                        <div class="progress_status testing_stat">
+                          <h2>67%</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>                             
+            </div>
+        </div>
+
+        <script>
+            function onEntry(entry) {
+                    entry.forEach(change => {
+                    if (change.isIntersecting) {
+                     change.target.classList.add('main_content_part_show');
+                    }
+                  });
+                }
+                
+                options_ = {
+                  threshold: [0.3]
+                };
+                observer = new IntersectionObserver(onEntry, options);
+                elements = document.querySelectorAll('.main_content_part');
+                
+                for (let elm of elements) {
+                  observer.observe(elm);
+                }
+
+
+
+
+
+                var toggleButton = document.getElementById('toggle-button');
+                var menuWindow = document.getElementById('window');
+
+                toggleButton.addEventListener('click', function() {
+                    if (menuWindow.style.display === 'none') {
+                      menuWindow.style.display = 'flex';
+                      positionWindow();
+                      setTimeout(function() {
+                        menuWindow.style.opacity = '1';
+                      }, 10);
+                    } else {
+                      menuWindow.style.opacity = '0';
+                      setTimeout(function() {
+                        menuWindow.style.display = 'none';
+                      }, 300);
+                    }
+                });
+
+                function positionWindow() {
+                  var buttonRect = toggleButton.getBoundingClientRect();
+                //   menuWindow.style.left = buttonRect.left + 'px';
+                }
+
+
+
+
+                function toggleDropdown() {
+                    var dropdownList = document.getElementById("dropdownList");
+                    dropdownList.classList.toggle("show");
+                }
+
+                
+
+
+                var slider = document.querySelector('.slider');
+                var prevButton = document.querySelector('.slider-prev');
+                var nextButton = document.querySelector('.slider-next');
+                var slideWidth = 130;
+                var slideSpacing = 10;
+                var numVisibleSlides = 6;
+                var numSlides = document.querySelectorAll('.slider-item').length;
+                var numSlideGroups = Math.ceil(numSlides / numVisibleSlides);
+                var maxIndex = numSlideGroups - 1;
+                var currentIndex = 0;
+
+                function prevSlide() {
+                  if (currentIndex > 0) {
+                    currentIndex--;
+                    var transformValue = -(currentIndex * (slideWidth * numVisibleSlides + slideSpacing * (numVisibleSlides - 1)));
+                    slider.style.transform = 'translateX(' + transformValue + 'px)';
+                  }
+                }
+
+                function nextSlide() {
+                  if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    var transformValue = -(currentIndex * (slideWidth * numVisibleSlides + slideSpacing * (numVisibleSlides - 1)));
+                    slider.style.transform = 'translateX(' + transformValue + 'px)';
+                  }
+                }
+                
+                prevButton.addEventListener('click', prevSlide);
+                nextButton.addEventListener('click', nextSlide);
+
+        </script>
+    </div>
+</body>
+</html>

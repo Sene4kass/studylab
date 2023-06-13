@@ -1,0 +1,40 @@
+#blockCourseWind {
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    position: absolute;
+    background: #00000034;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.window_block {
+    width: 1300px;
+    height: 520px;
+    background: #171717;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.left_part_wind_course {
+    width: 47%;
+    height: 100%;
+    border-right: 1px solid white;
+}
+
+.name_course_modal {
+    /* font-weight: 600; */
+    font-size: 35px;
+    letter-spacing: 1px;
+}
+
+.description_modal {
+    font-size: 16px;
+    margin-top: 25px;
+    font-weight: lighter;
+    letter-spacing: 0.5px;
+}

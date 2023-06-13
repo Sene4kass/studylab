@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesprof.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="menu_part">
+            <a class="home_link" href="">
+                <img class="small_logo" src="inc/img/logo_small.png">
+                <h2 class="name_logo">StudyLab</h2>
+            </a>
+            <nav>
+                <a class="nav_link main_link" href=""><img class="img_link_prof" src="inc/img/home_dafulut.png" alt=""> Главная</a>
+                <a style="color: #5B34CA;" class="nav_link courses_link" href=""><img class="img_link_prof" src="inc/img/courses_active.png" alt=""> Курсы</a>
+                <a class="nav_link dashbord_link" href=""><img class="img_link_prof" src="inc/img/dashboard_default.png" alt=""> Дашборд</a>
+                <a class="nav_link content_link" href=""><img class="img_link_prof" src="inc/img/content_icon_default.png" alt=""> Содержание</a>
+            </nav>
+            <script>
+
+                // do for every recorded object
+                function onEntry(entry) {
+                    entry.forEach(change => {
+                        if (change.isIntersecting) {
+                            change.target.classList.add('menu_part_show');
+                        }
+                    });
+                }
+                
+                // settings
+                let options = {
+                    root: null, // parent block
+                    rootMargin: '0px', // without margin
+                    threshold: 0.35 // procent of scrolled object
+                };
+            
+                // creating observer
+                let observer = new IntersectionObserver(onEntry, options);
+                let elements = document.querySelectorAll('.menu_part');
+                // tracking class on page
+                for (let elm of elements) {
+                    observer.observe(elm); // visor
+                }
+
+            </script>
+        </div>
+        <div class="main_content_part">
+            <header>
+                <h1 class="name_header_profile_page">
+                    Компьютерные сети 
+                    <button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown()"><div class="arrow"></div></button>
+                    <div class="dropdown-container">
+                      <ul id="dropdownList">
+                        <li>Элемент 1</li>
+                        <li>Элемент 2</li>
+                        <li>Элемент 3</li>
+                      </ul>
+                    </div>
+                </h1>
+
+                <div class="small_info">
+                    <img class="small_ava_heaader" src="inc/img/av.png" alt="">
+                    <div class="wrapper_name_prioritety">
+                        <h4>Иванов Павел</h4>
+                        <p>Учащийся</p>
+                    </div>
+                    <button id="toggle-button">
+                        <div class="arrow"></div>
+                        
+                    </button>
+                    <div id="window" style="display: none;opacity: 0;">
+                        <div class="small_window_line_1">
+                            <img src="inc/img/user_icon.png" class="us_ic" alt="">
+                            <h4 class="link_us_prof"><a href="">Линчый профиль</a></h4>
+                        </div>
+
+                        <div class="horiz_line_menu"></div>
+
+                        <div class="small_window_line_2">
+                            <img src="inc/img/logout.png" class="logout_ic" alt="">
+                            <h4 class="link_logout"><a href="">Выйти</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="block_content">
+                  
+                <div class="area_modules_statistics">
+                  <div class="left_part_modules">
+                    
+                    <a class="link_back_to_module" href="">&#x27F5; Вернуться к модулю</a>
+                    <h2 class="name_of_mudule">Ethernet на зарзделяемой среде. Коммутируеый Ethernet. Скоростный версии Ethernet</h2>
+
+                    <h3 class="subtopic">Сеть Ethernet. Формат кадра Eternet</h3>
+                    
+                    <p class="text_module">
+                      Одной из первых среди ЛВС шинной структуры была создана сетьEthernet, разработанная фирмой Xerox. В этой сети был применен методдоступа CSMA/CD. Позднее Ethernet стала основой стандарта IEEE 802.3.
+                    </p>
+                    <p class="text_module">Локальная сеть Ethernet – стандарт организации локальныхвычислительных систем, используемых для соединения устройств, находящихся на небольшом удалении друг от друга (в одном здании, группезданий).</p>
+                    <p class="text_module">Сеть Ethernet может иметь шинную или звёздную топологию. Встандарте первых версий (Ethernet v1.0 и Ethernet v2.0) указано, что вкачестве передающей среды используется коаксиальный кабель, вдальнейшем появилась возможность использовать витую пару и оптическийкабель.</p>
+
+                    <p class="text_module highlight">Причинами перехода на витую пару были:</p>
+
+                    <ol class="text_module ol_list_text">
+                      <li>возможность работы в дуплексном режиме;</li>
+                      <li>низкая стоимость кабеля «витой пары»;</li>
+                      <li>более высокая надёжность сетей при неисправности в кабеле;</li>
+                      <li>большая помехозащищенность при использованиидифференциального сигнала;</li>
+                      <li>возможность питания по кабелю маломощных узлов, например IP- телефонов (стандарт Power over Ethernet, POE);</li>
+                      <li>отсутствие гальванической связи (прохождения тока) между узламисети. При использовании коаксиального кабеля в российских условиях, где, как правило, отсутствует заземление компьютеров, применениекоаксиального кабеля часто сопровождалось пробоем сетевых карт, и иногда даже полным «выгоранием» системного блока.</li>
+                    </ol>
+
+                    <p class="text_module highlight">Причиной перехода на оптический кабель была необходимость увеличить длину сегмента без повторителей.</p>
+
+                    <p class="text_module">Фирма Xerox осуществила разработку протокола Ethernet в 1973 году, ав 1979 году объединение компаний Xerox, Intel и DEC (DIX) предоставилодокумент для стандартизации протокола в IEEE. Предложение с небольшимиизменениями было принято комитетом 802.3 в 1983 году. Стандартустанавливает определенный формат кадра Ethernet, показанный на рис</p>
+
+                    <img class="img_in_module" src="inc/img/image 13.png" alt="">
+
+                    <p class="text_module">Поле преамбула содержит 7 байт 0хАА и служит для стабилизации исинхронизации среды (чередующиеся сигналы CD1 и CD0 при завершающем CD0), далее следует поле SFD (start frame delimiter = 0xAB), котороепредназначено для выявления начала кадра. Поле EFD (end frame delimiter) задает конец кадра. Поле контрольной суммы (CRC – cyclic redundancycheck), также как и преамбула, SFD и EFD, формируются и контролируютсяна аппаратном уровне. В некоторых модификациях протокола поле efd неиспользуется. Пользователю доступны поля, начиная с адреса получателя икончая полем информация, включительно. После crc следует межпакетнаяпауза (IPG – interpacket gap – межпакетный интервал) длиной 9,6 мкс илиболее. Максимальный размер кадра равен 1518 байт (сюда не включены поляпреамбулы, SFD и EFD). Интерфейс просматривает все пакеты, следующиепо кабельному сегменту, к которому он подключен, ведь определить, корректен ли принятый пакет и кому он адресован, можно лишь приняв егоцеликом. Корректность пакета по CRC, по длине и кратности целому числубайт производится после проверки адреса места назначения. Вероятностьошибки передачи при наличии crc контроля составляет ~2-32.</p>
+
+                    <h3 class="subtopic">Стандарты Ethernet</h3>
+
+                    <p class="text_module">Спецификация Ethernet предусматривает несколько стандартовфизического уровня, определяющих вид кабельных систем и сетевойтопологии при организации сетей.</p>
+
+                    <p class="text_module highlight">Существуют следующие стандарты:</p>
+
+                    <ol class="ol_list_text">
+                      <li>10Base-2;</li>
+                      <li>10Base-5;</li>
+                      <li>10Base-Т;</li>
+                      <li>10Base-F;</li>
+                      <li>FOIRL (Fiber Optic Inter Repeater Link);</li>
+                      <li>10Base-FL;</li>
+                      <li>10Base-FB.</li>
+                    </ol>
+
+                    <img class="big_img_in_module" src="inc/img/image 14.png" alt="">
+                    
+                    <p class="text_module">Сеть Ethernet 10Base2 часто называют "тонкой Ethernet" или Thinnet из- за применяемого кабеля. Это одна из самых простых в установке и дешевыхтипов сетей. Топология сети – общая шина. Кабель прокладывается вдольмаршрута, где размещены рабочие станции, которые подключаются ксегменту при помощи Т-коннекторов. Отрезки сети, соединяющие соседниестанции, подключаются к T-коннекторам при помощи BNC-разъемов. Длясоединения двух отрезков кабеля применяются I-коннекторы. В сети можетприсутствовать не более 1024 станций. Ранее стандарт 10 base-2 широкоприменяется в "домашних" сетях, однако в настоящее время практически неиспользуется.</p>
+
+                    <button class="filled_btn link_to_start_test"><a href="">Начать тестирование</a></button>
+
+                  </div>
+                  
+                  <div class="right_part_statistics">
+                    <div class="wrapper_course_progress_stat">
+                      <h2 class="ready__">Выполнение курса</h2>
+                      <div class="test_wrapper_progress">
+                        <div class="progress_status">
+                          <h2>67%</h2>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="wrapper_course_progress_stat">
+                      <h2 class="ready__">Результативность</h2>
+                      <div class="test_wrapper_progress test_spec">
+                        <div class="progress_status testing_stat">
+                          <h2>67%</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            function onEntry(entry) {
+                    entry.forEach(change => {
+                    if (change.isIntersecting) {
+                     change.target.classList.add('main_content_part_show');
+                    }
+                  });
+                }
+                
+                options_ = {
+                  threshold: [0.3]
+                };
+                observer = new IntersectionObserver(onEntry, options);
+                elements = document.querySelectorAll('.main_content_part');
+                
+                for (let elm of elements) {
+                  observer.observe(elm);
+                }
+
+
+                var toggleButton = document.getElementById('toggle-button');
+                var menuWindow = document.getElementById('window');
+
+                toggleButton.addEventListener('click', function() {
+                    if (menuWindow.style.display === 'none') {
+                      menuWindow.style.display = 'flex';
+                      positionWindow();
+                      setTimeout(function() {
+                        menuWindow.style.opacity = '1';
+                      }, 10);
+                    } else {
+                      menuWindow.style.opacity = '0';
+                      setTimeout(function() {
+                        menuWindow.style.display = 'none';
+                      }, 300);
+                    }
+                });
+
+                function positionWindow() {
+                  var buttonRect = toggleButton.getBoundingClientRect();
+                }
+
+
+                function toggleDropdown() {
+                    var dropdownList = document.getElementById("dropdownList");
+                    dropdownList.classList.toggle("show");
+                }
+
+        </script>
+    </div>
+</body>
+</html>
