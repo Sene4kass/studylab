@@ -102,6 +102,12 @@ class User
         $logMessage = '[' . date('Y-m-d H:i:s') . '] ' . $message . "\n";
         file_put_contents($filename, $logMessage, FILE_APPEND);
     }
+
+    public function userLogout(){
+        $_SESSION = array();
+        session_destroy();
+        header("Location: index.php");
+    }
 }
 
 ?>

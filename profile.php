@@ -1,5 +1,7 @@
     <?php
-
+        if(PagesNavigation::isAdmin()){
+            header("Location: template.php?action=profile_teacher.php");
+        }
     ?>
         <div class="main_content_part">
 

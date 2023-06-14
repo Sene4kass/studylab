@@ -3,6 +3,7 @@ if($_SESSION["role"] !== 2){
     header("Location: template.php?action=profile.php");
     exit("Недостаточно прав доступа к данной странице");
 }
+$pageHeader = "Панель управления";
 ?>
 
 

@@ -1,15 +1,24 @@
 <?php
-    session_start();
+global $pageHeader;
+session_start();
     include_once "db.php";
     global $db;
     if(!isset($_GET["action"])) {
         header("Location:index.php");
-        exit("Ошибка запроса");
+        showNotification("Ошибка запроса");
     }
+
+    function showNotification($text) {
+        echo "<script>alert('".$text."')</script>";
+    }
+
     if(!isset($_SESSION) or $_SESSION["isAuth"] == 0) {
         header("Location:index.php");
-        exit("Не выполнен вход");
+        showNotification("Не выполнен вход");
     }
+
+    include_once "PagesNavigation.php";
+    $pagesNav = new PagesNavigation();
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +27,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title><?php
+        echo $pagesNav->getNavList()[$_GET["action"]];
+        ?></title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="stylesprof.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
@@ -32,11 +43,20 @@
                 <h2 class="name_logo">StudyLab</h2>
             </a>
             <nav>
-                <a class="nav_link main_link" href=""><img class="img_link_prof" src="inc/img/home_dafulut.png" alt=""> Главная</a>
-                <a class="nav_link courses_link" href=""><img class="img_link_prof" src="inc/img/courses_default.png" alt=""> Курсы</a>
-                <a style="color: #5B34CA;" class="nav_link content_link" href=""><img class="img_link_prof" src="inc/img/content_icon_active.png" alt=""> Содержание</a>
-                <a class="nav_link dashbord_link" href=""><img class="img_link_prof" src="inc/img/dashboard_default.png" alt=""> Дашборд</a>
-                <a style="color: #5B34CA;" class="nav_link courses_link" href=""><img class="img_link_prof" src="inc/img/conf_active.png" alt="">Управление</a>
+                <?php
+                echo '
+                <a class="nav_link main_link" href="index.php"><img class="img_link_prof" src="inc/img/home_dafulut.png" alt=""> Главная</a>
+                <a class="nav_link courses_link" href="template.php?action=courses.php"><img class="img_link_prof" src="inc/img/courses_default.png" alt=""> Курсы</a>
+                <a style="color: #5B34CA;" class="nav_link content_link" href="template.php?action=content_course.php"><img class="img_link_prof" src="inc/img/content_icon_active.png" alt=""> Содержание</a>
+                <a class="nav_link dashbord_link" href="template.php?action=detailed_stat.php"><img class="img_link_prof" src="inc/img/dashboard_default.png" alt=""> Дашборд</a>
+                ';
+                if(PagesNavigation::isAdmin())
+                {
+                    echo '
+                        <a style="color: #5B34CA;" class="nav_link courses_link" href="template.php?action=detailed_stat.php"><img class="img_link_prof" src="inc/img/conf_active.png" alt="">Управление</a>
+                    ';
+                }
+                ?>
             </nav>
             <script>
 
@@ -69,7 +89,9 @@
         <div class="main_content_part">
             <header>
                 <h1 class="name_header_profile_page">
-                    Компьютерные сети
+                    <?php
+                    echo $pagesNav->getNavList()[$_GET["action"]];
+                    ?>
                     <button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown()"><div class="arrow"></div></button>
                     <div class="dropdown-container">
                       <ul id="dropdownList">
@@ -103,14 +125,14 @@
                     <div id="window" style="display: none;opacity: 0;">
                         <div class="small_window_line_1">
                             <img src="inc/img/user_icon.png" class="us_ic" alt="">
-                            <h4 class="link_us_prof"><a href="">Линчый профиль</a></h4>
+                            <h4 class="link_us_prof"><a href="template.php?action=profile.php">Линчый профиль</a></h4>
                         </div>
 
                         <div class="horiz_line_menu"></div>
 
                         <div class="small_window_line_2">
                             <img src="inc/img/logout.png" class="logout_ic" alt="">
-                            <h4 class="link_logout"><a href="">Выйти</a></h4>
+                            <h4 class="link_logout"><a href="exit.php">Выйти</a></h4>
                         </div>
                     </div>
 
