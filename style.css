@@ -265,7 +265,7 @@ header {
 
 .dialog_window_log_in {
     width: 500px;
-    height: 500px;
+    height: 430px;
     background: #171717;
     border-radius: 32px;
     display: flex;

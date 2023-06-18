@@ -368,7 +368,7 @@ header {
     border: 2px solid #262626 !important;
     width: 100% !important;
     border-radius: 8px !important;
-    margin-top: 10px !important;
+    margin-top: 5px !important;
 }
 
 .short_login_input:focus, .long_email_input:focus {
@@ -730,7 +730,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
 }
 
 .time_wrapper {
-    width: 95px;
+    width: 105px;
     height: 30px;
     border-top-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -1343,7 +1343,8 @@ table {
     /* background: ; */
     width: 100%;
     border-spacing: 0;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 15px;
     border-radius: 15px;
     overflow: hidden;
 }
@@ -1483,7 +1484,7 @@ td {
 }
 
 .active_que {
-    border: 2px solid #5B34CA;
+    border: 1px solid #5B34CA;
 }
 
 .end_test_ {
@@ -2051,7 +2052,7 @@ td {
     align-items: center;
     width: fit-content;
     margin-top: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .course_checkbox {
