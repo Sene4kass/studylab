@@ -25,4 +25,10 @@ class PagesNavigation
             return false;
         }
     }
+
+    public static function redirectUser($page) {
+        echo '<script type="text/javascript">
+                location.replace("'.$page.'");
+                </script>';
+    }
 }

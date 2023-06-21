@@ -1,8 +1,9 @@
-    <?php
-        if(PagesNavigation::isAdmin()){
-            header("Location: template.php?action=profile_teacher.php");
-        }
-    ?>
+<?php
+    if(PagesNavigation::isAdmin()){
+        PagesNavigation::redirectUser("template.php?action=profile_teacher.php");
+        //exit();
+    }
+?>
         <div class="main_content_part">
 
             <div class="block_content">

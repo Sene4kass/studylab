@@ -2,6 +2,8 @@
 global $pageHeader;
 session_start();
     include_once "db.php";
+    include_once "User.php";
+    $user = new User();
     global $db;
     if(!isset($_GET["action"])) {
         header("Location:index.php");
@@ -19,6 +21,12 @@ session_start();
 
     include_once "PagesNavigation.php";
     $pagesNav = new PagesNavigation();
+
+    $query = $db->prepare("SELECT `Role_name` FROM `role` WHERE `id_Role` = ?");
+    $query->bind_param("i", $_SESSION["role"]);
+    $query->execute();
+    $result = $query->get_result();
+    $userRole = $result->fetch_assoc();
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +61,7 @@ session_start();
                 if(PagesNavigation::isAdmin())
                 {
                     echo '
-                        <a style="color: #5B34CA;" class="nav_link courses_link" href="template.php?action=detailed_stat.php"><img class="img_link_prof" src="inc/img/conf_active.png" alt="">Управление</a>
+                        <a style="color: #5B34CA;" class="nav_link courses_link" href="template.php?action=edit_module_teacher.php"><img class="img_link_prof" src="inc/img/conf_active.png" alt="">Управление</a>
                     ';
                 }
                 ?>
@@ -106,18 +114,7 @@ session_start();
                     <img class="small_ava_heaader" src="inc/img/ava_teacher.png" alt="">
                     <div class="wrapper_name_prioritety">
                         <h4><?php echo $_SESSION["name"].' '.$_SESSION["surname"]; ?></h4>
-                        <p>
-                            <?php
-                            $query = $db->prepare("SELECT `Role_name` FROM `role` WHERE `id_Role` = ?");
-                            $query->bind_param("i", $_SESSION["role"]);
-                            $query->execute();
-                            $result = $query->get_result();
-                            $userRole = $result->fetch_assoc();
-                            print($userRole["Role_name"]);
-
-                            ?>
-
-                        </p>
+                        <p><? echo $userRole["Role_name"];?></p>
                     </div>
                     <button id="toggle-button">
                         <div class="arrow"></div>
@@ -125,7 +122,7 @@ session_start();
                     <div id="window" style="display: none;opacity: 0;">
                         <div class="small_window_line_1">
                             <img src="inc/img/user_icon.png" class="us_ic" alt="">
-                            <h4 class="link_us_prof"><a href="template.php?action=profile.php">Линчый профиль</a></h4>
+                            <h4 class="link_us_prof"><a href="template.php?action=profile.php">Личный профиль</a></h4>
                         </div>
 
                         <div class="horiz_line_menu"></div>

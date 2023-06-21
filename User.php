@@ -108,6 +108,17 @@ class User
         session_destroy();
         header("Location: index.php");
     }
+
+    function createModule($name, $desc, $image){
+        global $db;
+        $query = $db->prepare("INSERT INTO `subject`(`Name`, `Short_description`, `Full_description`, `Status`, `Image`) VALUES (?,?,'-','1',?)");
+        $query->bind_param("sss",$name, $desc, $image);
+        $query->execute();
+        if($db->error){
+            echo $db->error;
+        }
+    }
 }
+
 
 ?>
