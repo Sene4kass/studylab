@@ -4,18 +4,29 @@ if($_SESSION["role"] !== 2){
     exit("Недостаточно прав доступа к данной странице");
 }
 $pageHeader = "Панель управления";
+include_once "User.php";
 ?>
 
 
             <div class="block_content">
                 <h1 class="my_courses_name">Мои курсы</h1>
                 <div class="courses_wrapper">
-                    <div class="course_block porf_c_wrapper">
+                    <!-- <div class="course_block porf_c_wrapper">
                         <img class="img_course" src="inc/img/image_of_course.png" alt="">
                         <h3 class="title_course_small">UX/UI Дизайн</h3>
                         <p class="info_course">Вы научитесь разрабатывать сайты, делать к ним интерфейс. Научитесь создавать дизайн для интернет-ресурсов, способный решить проблему пользователя</p>
                         <button class="filled_btn link_to_course"><a href="" class="">Перейти к курсу</a></button>
-                    </div>
+                    </div> -->
+                    <?php
+                        if(!User::hadSubjectTeacher()){
+                            echo '
+                            <div class="course_block porf_c_wrapper">
+                            <p class="info_course">У вас нет ни одного курса. Желаете создать курс?</p>
+                            <button class="filled_btn link_to_course"><a href="template.php?action=edit_module_teacher.php" class="">Создать курс</a></button>
+                            </div>';
+                        }
+
+                    ?>
                 </div>
 
                 <h1 class="my_forthcoming_courses_name">Предстоящие курсы</h1>

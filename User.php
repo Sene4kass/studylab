@@ -98,10 +98,6 @@ class User
         }
     }
 
-    private function logToFile($message, $filename) {
-        $logMessage = '[' . date('Y-m-d H:i:s') . '] ' . $message . "\n";
-        file_put_contents($filename, $logMessage, FILE_APPEND);
-    }
 
     public function userLogout(){
         $_SESSION = array();
@@ -117,6 +113,42 @@ class User
         if($db->error){
             echo $db->error;
         }
+    }
+
+    public static function hadSubjectTeacher(){
+        global $db;
+        $query = $db->prepare("SELECT * FROM `subject_user` WHERE `id_User` = ?");
+        $query->bind_param("s", $_SESSION["id"]);
+        $query->execute();
+        //print_r($query->get_result());
+        $result = $query->get_result();
+        //$query->store_result();
+        if($db->error){
+            echo $db->error;
+        }
+        if($result->num_rows == 0) {
+            return false;
+        }
+        else {
+            $i = 0;
+            //$result = $query->get_result();
+            $subjectUserInfo = $result->fetch_all();
+//            echo "aaaa";
+            echo "ID's of courses: <br>";
+            while($i < $result->num_rows){
+                echo $subjectUserInfo[$i][1];
+                echo " ";
+                $i++;
+            }
+            return true;
+        }
+    }
+
+
+
+    private function logToFile($message, $filename) {
+        $logMessage = '[' . date('Y-m-d H:i:s') . '] ' . $message . "\n";
+        file_put_contents($filename, $logMessage, FILE_APPEND);
     }
 }
 
