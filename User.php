@@ -116,33 +116,50 @@ class User
     }
 
     public static function hadSubjectTeacher(){
+        // есть ли у учителя созданные курсы
         global $db;
         $query = $db->prepare("SELECT * FROM `subject_user` WHERE `id_User` = ?");
         $query->bind_param("s", $_SESSION["id"]);
         $query->execute();
-        //print_r($query->get_result());
         $result = $query->get_result();
-        //$query->store_result();
         if($db->error){
             echo $db->error;
         }
         if($result->num_rows == 0) {
-            return false;
+            return null;
         }
         else {
             $i = 0;
-            //$result = $query->get_result();
             $subjectUserInfo = $result->fetch_all();
-//            echo "aaaa";
-            echo "ID's of courses: <br>";
-            while($i < $result->num_rows){
-                echo $subjectUserInfo[$i][1];
-                echo " ";
-                $i++;
-            }
-            return true;
+            //echo "ID's of courses: <br>";
+//            while($i < $result->num_rows){
+//                echo $subjectUserInfo[$i][1];
+//                echo " ";
+//                $i++;
+//            }
+            return $subjectUserInfo;
         }
     }
+
+    public static function GetCourse($id) {
+        global $db;
+        $query = $db->prepare("SELECT * FROM `subject` WHERE `id_Subject` = ?");
+        $query->bind_param("s", $id);
+        $query->execute();
+        $result = $query->get_result();
+        if($db->error){
+            echo $db->error;
+        }
+        if($result->num_rows == 0) {
+            return null;
+        }
+        else {
+            $courseInfo = $result->fetch_assoc();
+            return $courseInfo;
+        }
+    }
+
+
 
 
 

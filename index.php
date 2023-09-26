@@ -2,6 +2,7 @@
     session_start();
 
     include_once "User.php";
+    include_once "PagesNavigation.php";
 
     function showNotification($text) {
         echo "<script>alert('".$text."')</script>";
@@ -107,8 +108,15 @@
                     <p>Образование через интернет</p>
                 </div>
                 <div class="line_3">
-                    <button class="reg" onclick="myworks('#reg')">Зарегистрироваться</button>
-                    <button class="log_in" onclick="document.getElementById('window_log_in_wrapper').style.display = 'flex';document.getElementById('body').style.overflow = 'hidden';">Войти</button>
+                    <?
+                    if(isset($_SESSION) or $_SESSION["isAuth"] != 0) {
+                        echo '<a href="template.php?action=profile.php"><button class="log_in">В личный кабинет</button></a>';
+                    }
+                    else echo '
+                    <button class="reg" onclick="myworks(\'#reg\')">Зарегистрироваться</button>
+                    <button class="log_in" onclick="document.getElementById(\'window_log_in_wrapper\').style.display = \'flex\';document.getElementById(\'body\').style.overflow = \'hidden\';">Войти</button>
+                    ';
+                    ?>
                 </div>
             </div>
         </div>

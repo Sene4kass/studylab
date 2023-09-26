@@ -18,13 +18,31 @@ include_once "User.php";
                         <button class="filled_btn link_to_course"><a href="" class="">Перейти к курсу</a></button>
                     </div> -->
                     <?php
-                        if(!User::hadSubjectTeacher()){
+                        if(User::hadSubjectTeacher() == null){
                             echo '
                             <div class="course_block porf_c_wrapper">
                             <p class="info_course">У вас нет ни одного курса. Желаете создать курс?</p>
                             <button class="filled_btn link_to_course"><a href="template.php?action=edit_module_teacher.php" class="">Создать курс</a></button>
                             </div>';
                         }
+                        else {
+                            $userSubjectInfo = User::hadSubjectTeacher();
+                            $lengthOfArr = count($userSubjectInfo);
+                            $i = 0;
+                            while($i < $lengthOfArr) {
+                                $id_of_course = $userSubjectInfo[$i][1];
+                                $courseInfo = User::GetCourse($id_of_course);
+                                echo '<div class="course_block porf_c_wrapper" style="margin-right: 20px;">
+                                        <img class="img_course" src="inc/img/image_of_course.png" alt="">
+                                        <h3 class="title_course_small">'.$courseInfo["Name"].'</h3>
+                                        <p class="info_course">'.$courseInfo["Short_description"].'</p>
+                                        <button class="filled_btn link_to_course"><a href="" class="">Перейти к курсу</a></button>
+                                    </div>';
+                                $i++;
+                            }
+
+                        }
+
 
                     ?>
                 </div>
