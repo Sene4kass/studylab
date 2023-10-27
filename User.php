@@ -105,10 +105,10 @@ class User
         header("Location: index.php");
     }
 
-    function createModule($name, $desc, $image){
+    function createCourse($name, $desc, $fullDesk, $future){
         global $db;
-        $query = $db->prepare("INSERT INTO `subject`(`Name`, `Short_description`, `Full_description`, `Status`, `Image`) VALUES (?,?,'-','1',?)");
-        $query->bind_param("sss",$name, $desc, $image);
+        $query = $db->prepare("INSERT INTO `subject`(`Name`, `Short_description`, `Full_description`, `Status`) VALUES (?,?,?,?)");
+        $query->bind_param("sssi",$name, $desc, $fullDesk, $future);
         $query->execute();
         if($db->error){
             echo $db->error;
@@ -139,6 +139,21 @@ class User
 //            }
             return $subjectUserInfo;
         }
+    }
+
+    public static function GetCourseList(){
+        global $db;
+        $query = $db->prepare("SELECT * FROM `subject`");
+        $query->execute();
+        $result = $query->get_result();
+        if($result->num_rows == 0) {
+            return null;
+        }
+        else {
+            $subjectList = $result->fetch_all();
+            return $subjectList;
+        }
+
     }
 
     public static function GetCourse($id) {

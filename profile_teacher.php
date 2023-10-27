@@ -22,7 +22,7 @@ include_once "User.php";
                             echo '
                             <div class="course_block porf_c_wrapper">
                             <p class="info_course">У вас нет ни одного курса. Желаете создать курс?</p>
-                            <button class="filled_btn link_to_course"><a href="template.php?action=edit_module_teacher.php" class="">Создать курс</a></button>
+                            <button class="filled_btn link_to_course"><a href="template.php?action=courses_list.php" class="">Создать курс</a></button>
                             </div>';
                         }
                         else {

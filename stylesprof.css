@@ -2097,6 +2097,10 @@ td {
     padding-left: 15px !important;
 }
 
+textarea.inp_add_module{
+    height: 85px !important;
+}
+
 ._sm {
     width: 135px !important;
 }

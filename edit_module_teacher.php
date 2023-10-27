@@ -9,7 +9,8 @@ if(isset($_POST) and $_POST["action"] == "create_module") {
 }
 ?>
 
-                <div class="block_content content_flx_edit_page">
+
+            <div class="block_content content_flx_edit_page">
                 <div class="mini_nav_teacher">
                     <a href=""><img class="link_teacher" src="inc/img/clipboard_default.png" alt=""></a>
                     <a href=""><img class="link_teacher l_t_2" src="inc/img/book_default.png" alt=""></a>
@@ -27,7 +28,7 @@ if(isset($_POST) and $_POST["action"] == "create_module") {
                             </th>
                             <th class="t_module">Модуль</th>
                             <th class="t_numb_lessons">Количество занятий</th>
-                            <th class="t_position">Позиций в списке</th>
+                            <th class="t_position">Позиция в списке</th>
                         </tr>
     
                         <tr class="tr_modules">
@@ -70,7 +71,7 @@ if(isset($_POST) and $_POST["action"] == "create_module") {
                     <div class="wrapper_add_del">
                         <button class="wrapper_add" onclick="toggleBlockAdd()">
                             <img src="inc/img/add_icon.png" alt="" class="add_icon">
-                            Создать новый раздел
+                            Создать новый модуль
                         </button>
 
                         <a class="wrapper_del">
@@ -94,57 +95,29 @@ if(isset($_POST) and $_POST["action"] == "create_module") {
                             <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
                         </div>
                     </div>
-                    <form action="template.php?action=edit_module_teacher.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="action" value="create_module">
-                        <div id="myBlockAdd" class="hidden_block">
-                            <h2 class="name_red">Создание учебного курса</h2>
-                            <div class="wrapper_flex_inp_">
-                                <h3 class="small_name_module_inp">Название курса</h3>
-                                <input class="inp_add_module" type="text" name="course_name" id="">
-                            </div>
-                            <div class="wrapper_flex_inp_">
-                                <h3 class="small_name_module_inp">Описание курса</h3>
-                                <input class="inp_add_module" type="text" name="course_description" id="">
-                            </div>
-                            <div class="wrapper_flex_inp_ _ext">
-                                <h3 class="small_name_module_inp">Изображение</h3>
-                                <input type="file" id="file-input" name="course_image" style="display: none;">
-                                <input type="text" id="selected-file" class="inp_add_module">
-                                <button type="button" id="select-file-btn" class="unfilled_bgtn big _ch_file_btn">Выбрать файл</button>
 
-                                <script>
-                                    document.getElementById('select-file-btn').addEventListener('click', function() {
-                                        debugger;
-                                        document.getElementById('file-input').click();
-                                    });
-
-                                    document.getElementById('file-input').addEventListener('change', function() {
-                                        var selectedFile = this.files[0];
-                                        document.getElementById('selected-file').value = selectedFile.name;
-                                    });
-                                </script>
-
-
-
-                                <!-- <input class="inp_add_module _sm" type="file" name="" id=""> -->
-                            </div>
-                            <div class="wrapper_radio_future_course">
-                                <p>Предстоящий курс</p>
-                                <label class="custom-checkbox course_checkbox">
-
-                                    <input type="checkbox" id="checkbox1">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="wrapper_buttons_select _edit_inp">
-                                <button type="submit" class="filled_btn big _ed_btn" style="color: #ffffff;">Создать курс</button>
-                                <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
-                            </div>
+                    <div id="myBlockAdd" class="hidden_block">
+                        <h2 class="name_red">Редактирование</h2>
+                        <div class="wrapper_flex_inp_">
+                            <h3 class="small_name_module_inp">Название модуля</h3>
+                            <input class="inp_add_module" type="text" name="" id="">
                         </div>
-                    </form>
+                        <div class="wrapper_flex_inp_">
+                            <h3 class="small_name_module_inp">Позиция в списке</h3>
+                            <input class="inp_add_module" type="text" name="" id="">
+                        </div>
+                        <div class="wrapper_buttons_select _edit_inp">
+                            <button class="filled_btn big _ed_btn" style="color: #ffffff;">Сохранить</button>
+                            <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
+                        </div>
+                        <br>
+                    </div>
 
                 </div>
             </div>
         </div>
 
+
     </div>
+</body>
+</html>

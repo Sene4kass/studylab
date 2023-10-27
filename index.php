@@ -95,8 +95,15 @@
                     </a>
                 </div>
                 <div class="wrapper_button_header_def">
-                    <button class="reg_small" onclick="myworks('#reg')">Зарегистрироваться</button>
-                    <button class="log_in_small" onclick="document.getElementById('window_log_in_wrapper').style.display = 'flex';document.getElementById('body').style.overflow = 'hidden';"><img class="enter_img" src="inc/img/enter_img.png">Войти</button>
+                    <?
+                    if($_SESSION["isAuth"] != 0) {
+                        echo '<a href="template.php?action=profile.php"><button class="log_in">В личный кабинет</button></a>';
+                    }
+                    else echo '
+                    <button class="reg_small" onclick="myworks(\'#reg\')">Зарегистрироваться</button>
+                    <button class="log_in_small" onclick="document.getElementById(\'window_log_in_wrapper\').style.display = \'flex\';document.getElementById(\'body\').style.overflow = \'hidden\';"><img class="enter_img" src="inc/img/enter_img.png">Войти</button>
+                    ';
+                    ?>
                 </div>
             </div>
             <div class="header_main_part">
@@ -109,7 +116,7 @@
                 </div>
                 <div class="line_3">
                     <?
-                    if(isset($_SESSION) or $_SESSION["isAuth"] != 0) {
+                    if($_SESSION["isAuth"] != 0) {
                         echo '<a href="template.php?action=profile.php"><button class="log_in">В личный кабинет</button></a>';
                     }
                     else echo '
