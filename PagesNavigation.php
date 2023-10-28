@@ -10,8 +10,9 @@ class PagesNavigation
         "content_course.php" => "Просмотр курса",
         "content_course_teacher.php" => "Управление курсом",
         "edit_lesson_teacher.php" => "Редактировать урок",
-        "edit_module_teacher.php" => "Редактировать модуль",
-        "edit_users_teacher.php" => "Редактировать пользователя"
+        "edit_module_teacher.php" => "Редактировать модули",
+        "edit_users_teacher.php" => "Редактировать пользователя",
+        "edit_course_teacher.php" => "Редактировать курсы"
         ];
     public function getNavList(){
         return $this->NavList;

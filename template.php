@@ -103,7 +103,7 @@ session_start();
                     <button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown()"><div class="arrow"></div></button>
                     <div class="dropdown-container">
                       <ul id="dropdownList">
-                        <li>Элемент 1</li>
+                        <a href="template.php?action=edit_module_teacher.php"><li>Редактировать модули</li></a>
                         <li>Элемент 2</li>
                         <li>Элемент 3</li>
                       </ul>

@@ -1,3 +1,7 @@
+body {
+    padding-bottom: 25px;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -348,7 +352,7 @@ header {
 }
 
 .icon {
-    top: 38%;
+    top: 32%;
 }
 
 .input-container {
@@ -679,6 +683,11 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
 
 
 /*-------- COURSES --------*/
+
+.wrapper_courses_block {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .wrapper_course_area {
     width: 352px;
@@ -1343,7 +1352,7 @@ table {
     /* background: ; */
     width: 100%;
     border-spacing: 0;
-    margin-top: 20px;
+    /* margin-top: 20px; Удалить позже комментарий */
     margin-bottom: 15px;
     border-radius: 15px;
     overflow: hidden;
@@ -1799,25 +1808,24 @@ td {
 /*-------- EDIT USERS --------*/
 
 .wrapper_edit_users {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     width: 90%;
-    /* min-height: 100px; */
-    /* background: #202020; */
     border-radius: 15px;
     overflow-y: auto;
 }
-
-/* .active_tr td {
-    background: #1c1c1c !important;
-} */
 
 .checkbox_t {
     width: 5%;
 }
 
 .tr_users:hover .edit {
-    display: inline;
-    cursor:auto;
+    display: flex;
+    cursor: auto;
+}
+
+.tr_users:hover .u_flag {
+    display: flex;
+    cursor: auto;
 }
 
 .tr_users:hover td {
@@ -1843,8 +1851,16 @@ td {
 
 .wrapper_action {
     display: none;
+    /* position: absolute; */
+    right: 20px;
+    top: 15px;
+}
+
+.wrapper_action_u {
+    display: none;
     position: absolute;
     right: 20px;
+    top: 25px;
 }
 
 .give {
@@ -1980,8 +1996,9 @@ td {
 
 /*-------- CLIPBOARD PAGE --------*/
 
-.tr_modules:hover .edit, .wrapper_action {
-    display: inline;
+.tr_modules:hover .edit, .tr_modules:hover .wrapper_action {
+    display: flex;
+    
 }
 
 .tr_modules:hover td {
@@ -2000,17 +2017,32 @@ td {
     width: 25%;
 }
 
-.t_poistion {
+.t_position {
     width: 25%;
+    position: relative;
 }
 
 .edit {
     background: transparent;
     color: #5B34CA;
     cursor: pointer;
+    border: none;
+}
+
+.position_list_wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.edit_pos {
+    background: transparent;
+    color: #5B34CA;
+    cursor: pointer;
     margin-left: 10px;
     border: none;
-    display: none;
 }
 
 .hidden_block {
@@ -2020,6 +2052,7 @@ td {
 .show_block {
     animation: fade-in 0.5s;
     margin-top: 50px;
+    margin-bottom: 10px;
 }
 
 @keyframes fade-in {
@@ -2363,4 +2396,115 @@ textarea.inp_add_module{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width: 1580px){
+    .save_changes_btn {
+        width: 200px;
+        padding: 10px;
+        font-size: 15px;
+    }
+    .cancel_changes_btn {
+        width: 155px;
+        padding: 10px;
+        font-size: 15px;
+    }
+    .course_block.small_course {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+    }
+    .img_course.small {
+        width: 60%;
+    }
+    .wrapper_small_courses {
+        width: 90%;
+    }
+}
+
+@media(max-width: 1500px){
+    .wrapper_edit_users {
+        margin-left: 20px;
+    }
+    .name_red {
+        font-size: 21px;
+    }
+    .small_name_module_inp {
+        font-size: 17px;
+    }
+    .inp_add_module {
+        width: 210px !important;
+        height: 30px !important;
+    }
+    .wrapper_add {
+        font-size: 15px;
+    }
+    .modules_name_ {
+        font-size: 22px;
+    }
+    .link_module_ {
+        font-size: 14px;
+    }
+    .t_name, .t_surname, .t_fathername, .t_email, .t_module, .t_numb_lessons, .t_poistion {
+        font-size: 15px;
+    }
+    .wrapper_action{
+        flex-direction: column;
+    }
+    .wrapper_action_u {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+    }
+    .tr_modules:hover .edit, .wrapper_action_u {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .refuse {
+        margin-left: 10px;
+    }
+    .edit_pos {
+        margin-top: 5px;
+    }
+    
+}
+
+@media(max-width: 1400px){
+    .save_changes_btn {
+        width: 170px;
+        padding: 10px;
+        font-size: 14px;
+    }
+    .cancel_changes_btn {
+        width: 105px;
+        padding: 10px;
+        font-size: 14px;
+    }
 }

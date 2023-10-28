@@ -110,6 +110,28 @@ class User
         $query = $db->prepare("INSERT INTO `subject`(`Name`, `Short_description`, `Full_description`, `Status`) VALUES (?,?,?,?)");
         $query->bind_param("sssi",$name, $desc, $fullDesk, $future);
         $query->execute();
+
+        $id_User = $_SESSION["id"];
+
+        $query = $db->prepare("SELECT * FROM `subject` WHERE `Name` = ".$name."");
+        $query->execute();
+        $result = $query->get_result();
+        $subject = $result->fetch_assoc();
+        $id_Subject = $subject["id_Subject"];
+
+        $query = $db->prepare("INSERT INTO `subject_user`(`id_Subject`, `id_User`) VALUES (?,?)");
+        $query->bind_param("ii",$id_Subject, $id_User);
+        $query->execute();
+        if($db->error){
+            echo $db->error;
+        }
+    }
+
+    function createModule($name, $position){
+        global $db;
+        $query = $db->prepare("INSERT INTO `module`(`Module_name`,`Position_in_list`) VALUES (?,?,?,?)");
+        $query->bind_param("sssi",$name, $desc, $fullDesk, $future);
+        $query->execute();
         if($db->error){
             echo $db->error;
         }
@@ -131,12 +153,6 @@ class User
         else {
             $i = 0;
             $subjectUserInfo = $result->fetch_all();
-            //echo "ID's of courses: <br>";
-//            while($i < $result->num_rows){
-//                echo $subjectUserInfo[$i][1];
-//                echo " ";
-//                $i++;
-//            }
             return $subjectUserInfo;
         }
     }
