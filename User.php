@@ -52,7 +52,6 @@ class User
             $userInfo = $result->fetch_assoc();
             $passHash = hash("sha256", $password);
             if($passHash == $userInfo["Password"]):
-            // работа с сессиями
                 $_SESSION["id"] = $userInfo["id_User"];
                 $_SESSION["login"] = $userInfo["Login"];
                 $_SESSION["role"] = $userInfo["id_Role"];
@@ -60,12 +59,7 @@ class User
                 $_SESSION["surname"] = $userInfo["Surname"];
                 $_SESSION["lastname"] = $userInfo["Patronymic"];
                 $_SESSION["isAuth"] = 1;
-//                if($_SESSION["role"] == 2) {
-//                    $_SESSION["action"] = "profile_teacher.php";
-//                }
-//                else {
-//                    $_SESSION["action"] = "profile.php";
-//                }
+
                 return true;
             else:
                 return false;
@@ -125,17 +119,41 @@ class User
         if($db->error){
             echo $db->error;
         }
+        PagesNavigation::redirectUser('');
     }
 
-    function createModule($name, $position){
+    function createModule($name, $position, $view_status, $access_status){
         global $db;
-        $query = $db->prepare("INSERT INTO `module`(`Module_name`,`Position_in_list`) VALUES (?,?,?,?)");
-        $query->bind_param("sssi",$name, $desc, $fullDesk, $future);
+        $course_id = User::GetCourseByName($_GET["course"]);
+        $query = $db->prepare("INSERT INTO `module`(`Module_name`,`Position_in_list`, `View_status`, `Access_status`, `id_Subject`) VALUES (?,?,?,?,?)");
+        $query->bind_param("siiii",$name, $position, $view_status, $access_status, $course_id["id_Subject"]);
         $query->execute();
         if($db->error){
             echo $db->error;
         }
     }
+
+    function updateModule($name, $position, $view_status, $access_status, $id){
+        global $db;
+        $query = $db->prepare("UPDATE `module` SET `Module_name` = ?, `Position_in_list` = ?, `View_status` = ?, `Access_status` = ? WHERE `id_Module` = ?");
+        $query->bind_param("siiii",$name, $position, $view_status, $access_status, $id);
+        $query->execute();
+        if($db->error){
+            echo $db->error;
+        }
+        PagesNavigation::redirectUser('');
+    }
+    function updateCourse($name, $desc, $fulldesc, $id){
+        global $db;
+        $query = $db->prepare("UPDATE `subject` SET `Name` = ?, `Short_description` = ?, `Full_description` = ? WHERE `id_Subject` = ?");
+        $query->bind_param("sssi",$name, $desc, $fulldesc, $id);
+        $query->execute();
+        if($db->error){
+            echo $db->error;
+        }
+        PagesNavigation::redirectUser('');
+    }
+
 
     public static function hadSubjectTeacher(){
         // есть ли у учителя созданные курсы
@@ -175,7 +193,7 @@ class User
     public static function GetCourse($id) {
         global $db;
         $query = $db->prepare("SELECT * FROM `subject` WHERE `id_Subject` = ?");
-        $query->bind_param("s", $id);
+        $query->bind_param("i", $id);
         $query->execute();
         $result = $query->get_result();
         if($db->error){
@@ -188,6 +206,84 @@ class User
             $courseInfo = $result->fetch_assoc();
             return $courseInfo;
         }
+    }
+    public static function GetCourseByName($name) {
+        global $db;
+        $query = $db->prepare("SELECT * FROM `subject` WHERE `Name` = ?");
+        $query->bind_param("s", $name);
+        $query->execute();
+        $result = $query->get_result();
+        if($db->error){
+            echo $db->error;
+        }
+        if($result->num_rows == 0) {
+            return null;
+        }
+        else {
+            $courseInfo = $result->fetch_assoc();
+            return $courseInfo;
+        }
+    }
+
+    public static function getAllCoursesNames() {
+        global $db;
+        $query = $db->prepare("SELECT `Name` FROM `subject`");
+        $query->execute();
+        $result = $query->get_result();
+        if($db->error){
+            echo $db->error;
+        }
+        if($result->num_rows == 0) {
+            return null;
+        }
+        else {
+            $courseInfo = $result->fetch_all();
+            return $courseInfo;
+        }
+    }
+
+    public static function getModulesByCourse($course_name) {
+        global $db;
+        $query = $db->prepare("SELECT `id_Subject` FROM `subject` WHERE `Name` = ?");
+        $query->bind_param("s", $course_name);
+        $query->execute();
+        $result = $query->get_result();
+        if($db->error){
+            echo $db->error;
+        }
+        if($result->num_rows == 0) {
+            return null;
+        }
+        else {
+            $course_ID = $result->fetch_row();
+            $course_ID = $course_ID[0];
+        }
+        $query = $db->prepare("SELECT * FROM `module` WHERE `id_Subject` = ?");
+        $query->bind_param("i", $course_ID);
+        $query->execute();
+        $result = $query->get_result();
+        if($db->error){
+            echo $db->error;
+        }
+        if($result->num_rows == 0) {
+            return null;
+        }
+        else {
+            $modules_list = $result->fetch_all();
+            return $modules_list;
+        }
+    }
+
+    public function getLessonsByModule($moduleID) {
+        global $db;
+        $query = $db->prepare("SELECT COUNT(*) FROM `lesson` WHERE `id_Module` = ?");
+        $query->bind_param("i", $moduleID);
+        $query->execute();
+        $result = $query->get_result();
+        if($db->error){
+            echo $db->error;
+        }
+        return $result->fetch_row();
     }
 
 

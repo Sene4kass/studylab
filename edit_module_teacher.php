@@ -5,7 +5,15 @@ if(!PagesNavigation::isAdmin()){
 
 if(isset($_POST) and $_POST["action"] == "create_module") {
     global $user;
-    $user->createModule($_POST["course_name"], $_POST["course_description"], $_POST["course_image"]);
+    isset($_POST["module_view"]) ? $module_view = 1 : $module_view = 0;
+    isset($_POST["module_access"]) ? $module_access = 1 : $module_access = 0;
+    $user->createModule($_POST["module_name"], $_POST["module_position"], $module_view, $module_access);
+}
+if(isset($_POST) and $_POST["action"] == "update_module") {
+    global $user;
+    isset($_POST["module_view"]) ? $module_view = 1 : $module_view = 0;
+    isset($_POST["module_access"]) ? $module_access = 1 : $module_access = 0;
+    $user->updateModule($_POST["module_name"], $_POST["module_position"], $module_view, $module_access, $_POST["module_id"]);
 }
 ?>
 
@@ -30,42 +38,25 @@ if(isset($_POST) and $_POST["action"] == "create_module") {
                             <th class="t_numb_lessons">Количество занятий</th>
                             <th class="t_position">Позиция в списке</th>
                         </tr>
-    
-                        <tr class="tr_modules">
-                            <td class="checkbox_t">
-                                <label class="custom-checkbox_dark">
-                                    <input type="checkbox" id="checkbox1">
-                                    <span class="checkmark_dark"></span>
-                                </label>
-                            </td>
-                            <td class="t_module">Сети TCP/IP</td>
-                            <td class="t_numb_lessons">10</td>
-                            <td class="t_position">3 <div class="wrapper_action"><button class="edit" onclick="toggleBlockEdit()">Изменить</button></div></td>
-                        </tr>
-
-                        <tr class="tr_modules">
-                            <td class="checkbox_t">
-                                <label class="custom-checkbox_dark">
-                                    <input type="checkbox" id="checkbox1">
-                                    <span class="checkmark_dark"></span>
-                                </label>
-                            </td>
-                            <td class="t_module">Технология Ethernet</td>
-                            <td class="t_numb_lessons">8</td>
-                            <td class="t_position">2 <div class="wrapper_action"><button class="edit" onclick="toggleBlockEdit()">Изменить</button></div></td>
-                        </tr>
-                        
-                        <tr class="tr_modules">
-                            <td class="checkbox_t">
-                                <label class="custom-checkbox_dark">
-                                    <input type="checkbox" id="checkbox1">
-                                    <span class="checkmark_dark"></span>
-                                </label>
-                            </td>
-                            <td class="t_module">Основы сетей передачи данных</td>
-                            <td class="t_numb_lessons">12</td>
-                            <td class="t_position">1 <div class="wrapper_action"><button class="edit" onclick="toggleBlockEdit()">Изменить</button></div></td>
-                        </tr>
+                        <?
+                        if(isset($_GET)) {
+                            isset($_GET["course"]) ? $modulesList = $user->getModulesByCourse($_GET["course"]) : $modulesList = null;
+                        }
+                        if($modulesList != null) {
+                            for($i=0;$i<count($modulesList);$i++){
+                                echo '
+                            <tr class="tr_modules">
+                                <td class="checkbox_t">
+                                    <label class="custom-checkbox_dark">
+                                        <input type="checkbox" id="checkbox1">
+                                        <span class="checkmark_dark"></span>
+                                    </label>
+                                </td>
+                                <td class="t_module">'.$modulesList[$i][1].'</td>
+                                <td class="t_numb_lessons">'.$user->getLessonsByModule($modulesList[$i][0])[0].'</td>
+                                <td class="rd_position"><div class="position_list_wrapper"><p>'.$modulesList[$i][2].'</p><div class="wrapper_action"><button class="edit" onclick="toggleBlockEdit(\''.$modulesList[$i][1].'\','.$modulesList[$i][2].','.$modulesList[$i][0].')">Изменить</button></div></div></td>
+                            </tr>
+                           '; } }?>
 
                     </table>
                     <div class="wrapper_add_del">
@@ -82,35 +73,78 @@ if(isset($_POST) and $_POST["action"] == "create_module") {
 
                     <div id="myBlock" class="hidden_block">
                         <h2 class="name_red">Редактирование</h2>
-                        <div class="wrapper_flex_inp_">
-                            <h3 class="small_name_module_inp">Название модуля</h3>
-                            <input class="inp_add_module" type="text" name="" id="">
-                        </div>
-                        <div class="wrapper_flex_inp_">
-                            <h3 class="small_name_module_inp">Позиция в списке</h3>
-                            <input class="inp_add_module _sm" type="number" name="" id="">
-                        </div>
-                        <div class="wrapper_buttons_select _edit_inp">
-                            <button class="filled_btn big" style="color: #ffffff;">Узнать больше</button>
-                            <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
-                        </div>
+                        <form action="" method="POST">
+                            <input type="hidden" name="action" value="update_module">
+                            <input type="hidden" name="module_id" value="none" id="id_module_input">
+                            <div class="wrapper_flex_inp_">
+                                <h3 class="small_name_module_inp">Название модуля</h3>
+                                <input class="inp_add_module" type="text" name="module_name" id="input_name">
+                            </div>
+                            <div class="wrapper_flex_inp_">
+                                <h3 class="small_name_module_inp">Позиция в списке</h3>
+                                <input class="inp_add_module" type="text" name="module_position" id="input_position">
+                            </div>
+                            <div class="wrapper_radio_future_course">
+                                <p>Показать модуль</p>
+                                <label class="custom-checkbox course_checkbox">
+
+                                    <input type="checkbox" id="checkbox1" name="module_view" id="view_module">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="wrapper_radio_future_course">
+                                <p>Модуль доступен</p>
+                                <label class="custom-checkbox course_checkbox">
+
+                                    <input type="checkbox" id="checkbox1" name="module_access" id="access_module">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <input type="hidden" name="id_Subject" value="">
+                            <div class="wrapper_buttons_select _edit_inp">
+                                <button class="filled_btn big _ed_btn" style="color: #ffffff;" type="submit">Сохранить</button>
+                                <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
+                            </div>
+                        </form>
+
                     </div>
 
                     <div id="myBlockAdd" class="hidden_block">
-                        <h2 class="name_red">Редактирование</h2>
+                        <h2 class="name_red">Создание модуля</h2>
+                        <form action="" method="POST">
+                            <input type="hidden" name="action" value="create_module">
                         <div class="wrapper_flex_inp_">
                             <h3 class="small_name_module_inp">Название модуля</h3>
-                            <input class="inp_add_module" type="text" name="" id="">
+                            <input class="inp_add_module" type="text" name="module_name" id="">
                         </div>
                         <div class="wrapper_flex_inp_">
                             <h3 class="small_name_module_inp">Позиция в списке</h3>
-                            <input class="inp_add_module" type="text" name="" id="">
+                            <input class="inp_add_module" type="text" name="module_position" id="">
                         </div>
+                        <div class="wrapper_radio_future_course">
+                            <p>Показать модуль</p>
+                            <label class="custom-checkbox course_checkbox">
+
+                                <input type="checkbox" id="checkbox1" name="module_view">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="wrapper_radio_future_course">
+                            <p>Модуль доступен</p>
+                            <label class="custom-checkbox course_checkbox">
+
+                                <input type="checkbox" id="checkbox1" name="module_access">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                            <input type="hidden" name="id_Subject" value="">
                         <div class="wrapper_buttons_select _edit_inp">
-                            <button class="filled_btn big _ed_btn" style="color: #ffffff;">Сохранить</button>
+                            <button class="filled_btn big _ed_btn" style="color: #ffffff;" type="submit">Создать</button>
                             <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
                         </div>
+                        </form>
                         <br>
+
                     </div>
 
                 </div>

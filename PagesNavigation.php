@@ -14,9 +14,18 @@ class PagesNavigation
         "edit_users_teacher.php" => "Редактировать пользователя",
         "edit_course_teacher.php" => "Редактировать курсы"
         ];
+    public function getNavListModule(){
+        print("wohoo");
+    }
+    public array $ElementsList = [
+        "edit_module_teacher.php"
+    ];
+
     public function getNavList(){
         return $this->NavList;
     }
+
+
 
     public static function isAdmin(){
         if($_SESSION["role"] == 2){

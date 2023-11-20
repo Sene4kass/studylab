@@ -1,5 +1,4 @@
 <?php
-global $pageHeader;
 session_start();
     include_once "db.php";
     include_once "User.php";
@@ -99,15 +98,24 @@ session_start();
                 <h1 class="name_header_profile_page">
                     <?php
                     echo $pagesNav->getNavList()[$_GET["action"]];
+                    for($i=0; $i<=count($pagesNav->ElementsList); $i++){
+                        if($_GET["action"] == $pagesNav->ElementsList[$i]) {
+                        $courses_names_list = $user->getAllCoursesNames();
+                        //print_r($courses_names_list);
+                            echo '<button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown(\'arrow_list\')"><div class="arrow" id="arrow_button"></div></button>
+                                    <div class="dropdown-container">
+                                      <ul id="dropdownList">';
+                            for($i=0;$i<count($courses_names_list);$i++) {
+                                echo '
+                                    <li><a href="template.php?action=edit_module_teacher.php&course='.$courses_names_list[$i][0].'">'. $courses_names_list[$i][0] . '</a></li>';
+                            }
+                            echo'
+                              </ul>
+                            </div>';
+                        }
+                        break;
+                    }
                     ?>
-                    <button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown()"><div class="arrow"></div></button>
-                    <div class="dropdown-container">
-                      <ul id="dropdownList">
-                        <a href="template.php?action=edit_module_teacher.php"><li>Редактировать модули</li></a>
-                        <li>Элемент 2</li>
-                        <li>Элемент 3</li>
-                      </ul>
-                    </div>
                 </h1>
 
                 <div class="small_info">
@@ -117,7 +125,7 @@ session_start();
                         <p><? echo $userRole["Role_name"];?></p>
                     </div>
                     <button id="toggle-button">
-                        <div class="arrow"></div>
+                        <div class="arrow" id="arrow_button_"></div>
                     </button>
                     <div id="window" style="display: none;opacity: 0;">
                         <div class="small_window_line_1">
@@ -141,175 +149,26 @@ session_start();
                 ?>
             </div>
 
-        <script>
-            function onEntry(entry) {
+            <script type="text/javascript" src="inc/js/main.js">
+                function onEntry(entry) {
                     entry.forEach(change => {
-                    if (change.isIntersecting) {
-                     change.target.classList.add('main_content_part_show');
-                    }
-                  });
-                }
-                
-                options_ = {
-                  threshold: [0.3]
-                };
-                observer = new IntersectionObserver(onEntry, options);
-                elements = document.querySelectorAll('.main_content_part');
-                
-                for (let elm of elements) {
-                  observer.observe(elm);
-                }
-
-
-
-
-
-
-
-                /*Menu Modal*/
-
-                var toggleButton = document.getElementById('toggle-button');
-                var menuWindow = document.getElementById('window');
-
-                toggleButton.addEventListener('click', function() {
-                    if (menuWindow.style.display === 'none') {
-                      menuWindow.style.display = 'flex';
-                      positionWindow();
-                      setTimeout(function() {
-                        menuWindow.style.opacity = '1';
-                      }, 10);
-                    } else {
-                      menuWindow.style.opacity = '0';
-                      setTimeout(function() {
-                        menuWindow.style.display = 'none';
-                      }, 300);
-                    }
-                });
-
-                function positionWindow() {
-                  var buttonRect = toggleButton.getBoundingClientRect();
-                }
-
-
-
-
-                function toggleDropdown() {
-                    var dropdownList = document.getElementById("dropdownList");
-                    dropdownList.classList.toggle("show");
-                }
-
-
-
-
-
-
-                /* Checkboxes */
-
-
-                function toggleCheckboxes() {
-                    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                    var masterCheckbox = document.getElementById('masterCheckbox');
-
-                    for (var i = 0; i < checkboxes.length; i++) {
-                      checkboxes[i].checked = masterCheckbox.checked;
-                    }
-                }
-
-               
-
-
-
-
-
-
-
-
-
-                /* Add block */
-                
-                function toggleBlockEdit() {
-                    var block = document.getElementById("myBlock");
-                    block.classList.toggle("hidden_block");
-                    block.classList.toggle("show_block");
-
-                    // var block2 = document.getElementById("myBlockAdd");
-                    // block2.classList.toggle("hidden_block");
-                    // block2.classList.toggle("show_block");
-                }
-
-                function toggleBlockAdd() {
-                    // var block3 = document.getElementById("myBlock");
-                    // block3.classList.toggle("hidden_block");
-
-                    var block = document.getElementById("myBlockAdd");
-                    block.classList.toggle("hidden_block");
-                    block.classList.toggle("show_block");
-                }
-
-
-
-
-
-
-
-
-
-
-                /* Test Mark */
-
-                const tableRows = document.querySelectorAll('.tt_');
-
-                tableRows.forEach(function(row) {
-                  row.addEventListener('click', function() {
-                    // const targetId = row.getAttribute('data-target');
-                    // const targetBlock = document.getElementById(targetId);
-                    document.getElementById('modal_wind_marks').style.display = "flex";
-                  });
-                });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                function toggleCheckboxes() {
-                    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                    var masterCheckbox = document.getElementById('masterCheckbox');
-
-                    for (var i = 0; i < checkboxes.length; i++) {
-                      checkboxes[i].checked = masterCheckbox.checked;
-                    }
-                }
-
-                function toggleCheckbox_All(checkbox) {
-                    checkbox.classList.toggle("checked");
-
-                    var checkboxes = document.querySelectorAll(".custom-checkbox");
-                    var isChecked = checkbox.classList.contains("checked");
-
-                    checkboxes.forEach(function(element) {
-                        if (checkbox.id === "select-all") {
-                            element.classList.toggle("checked", isChecked);
-                        } else if (element !== checkbox) {
-                            if (isChecked) {
-                                element.classList.add("checked");
-                            } else {
-                                element.classList.remove("checked");
-                            }
+                        if (change.isIntersecting) {
+                            change.target.classList.add('main_content_part_show');
                         }
                     });
                 }
-        </script>
+
+                options_ = {
+                    threshold: [0.3]
+                };
+                observer = new IntersectionObserver(onEntry, options);
+                elements = document.querySelectorAll('.main_content_part');
+
+                for (let elm of elements) {
+                    observer.observe(elm);
+                }
+
+            </script>
     </div>
 </body>
 </html>

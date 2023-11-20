@@ -25,7 +25,7 @@ p, a, h1, h2, h3, h4, h5, h6, ol li, th, td {
 .container {
     width: 90%;
     margin: auto;
-    position: relative;
+    /* position: relative; */
 }
 
 header {
@@ -405,7 +405,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85vh;
+    min-height: 85vh;
     color: #ffffff;
     font-weight: bold;
     transition: 1.5s;
@@ -467,7 +467,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     padding: 25px;
     padding: 50px;
     width: 100%;
-    height: 80vh;
+    min-height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -538,7 +538,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
 
 .part_4 {
     width: 100%;
-    height: 95vh;
+    min-height: 95vh;
     padding: 50px;
     margin-top: 20px;
     display: flex;
@@ -584,11 +584,12 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
 
 .more_inf_module {
     width: 600px;
-    height: 500px;
+    height: auto;
     background: #171717;
     border-radius: 30px;
     padding: 25px;
     padding-left: 40px;
+    margin-left: 10px;
 }
 
 .more_inf_module * {
@@ -940,7 +941,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50vh;
+    min-height: 50vh;
     margin-top: 50px;
 }
 
@@ -1087,6 +1088,88 @@ footer * {
 
 
 
+@media(max-width: 1450px) {
+    .step_img {
+        width: 75px;
+        height: 75px;
+    }
+    .block_hiw h2 {
+        margin-top: 15px;
+        font-size: 18px;
+    }
+    .block_hiw p {
+        margin-top: 10px;
+        font-size: 16px;
+        padding: 5px;
+    }
+}
+
+@media(max-width: 1250px) {
+    .view_course_text h3 {
+        font-size: 15px;
+    }
+    .name_module {
+        font-size: 21px;
+    }
+    .options_ol li {
+        font-size: 15px;
+    }
+    .part_4 {
+        justify-content: flex-start;
+        height: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        /* border: 1px solid white; */
+    }
+}
+
+@media(max-width: 1100px) {
+    .main_logo {
+        width: 90px;
+        height: 90px;
+    }
+    .logo_text {
+        font-size: 85px;
+        margin-left: 20px;
+    }
+    .part_2 {
+        flex-direction: column;
+    }
+    .left_part_cont_2 {
+        width: 90%;
+        height: auto;
+        margin-top: 50px;
+    }
+    .right_part_cont_2 {
+        width: 90%;
+        height: auto;
+        margin-top: 30px;
+    }
+    .left_part_cont_2 h1 {
+        font-size: 36px;
+    }
+    .inf_cont_part_2 {
+        font-size: 24px;
+    }
+    .part_3 {
+        height: auto;
+    }
+    .part_3_name {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    .wrapper_hiw_blocks {
+
+        flex-direction: column;
+    }
+    .part_4 {
+        justify-content: flex-start;
+        padding: 5px;
+    }
+    .name_module {
+        margin-top: 0px;
+    }
+}
 
 
 

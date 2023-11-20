@@ -426,7 +426,7 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
 }
 
 .save_changes_btn:hover {
-    background: #4c2ea8;
+    background: #3d2585;
     /* box-shadow: 0px 2px 15px rgba(73, 47, 147, 0.8); */
 }
 
@@ -454,7 +454,8 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
 }
 
 .cancel_changes_btn:hover {
-    background: #4c2ea8;
+    background: rgb(179, 6, 6);
+    border-color:rgb(179, 6, 6);
     /* box-shadow: 0px 2px 15px rgba(73, 47, 147, 0.8); */
 }
 
@@ -564,12 +565,21 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
     background: transparent;
     color: #ffffff;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.1s;
     border: none;
     /* border: 1px solid white; */
     padding: 5px;
 }
 
+#toggle-button-profile {
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.1s;
+    border: none;
+    /* border: 1px solid white; */
+    padding: 5px;
+}
 .arrow {
     width: 12px;
     height: 12px;
@@ -792,7 +802,8 @@ input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hove
 }
 
 .filled_btn:hover {
-    background: #4c2ea8;
+    /* background: #4c2ea8; */
+    background: #3d2585;
     /* box-shadow: 0px 2px 15px rgba(73, 47, 147, 0.8); */
 }
 
@@ -2161,7 +2172,9 @@ textarea.inp_add_module{
 }
 
 ._ed_btn:hover {
-    background: #4c2ea8;
+    /* background: #4c2ea8; */
+    background: rgb(179, 6, 6);
+    border-color:rgb(179, 6, 6);
     color: #ffffff;
 }
 
@@ -2507,4 +2520,8 @@ textarea.inp_add_module{
         padding: 10px;
         font-size: 14px;
     }
+}
+
+.arrow_list {
+    transform: rotate(135deg);
 }
