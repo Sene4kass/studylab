@@ -77,7 +77,7 @@
                             <span class="icon">
                               <img src="inc/img/palceholder_password.png" alt="">
                             </span>
-                            <input type="text" placeholder="Пароль" name="password">
+                            <input type="password" placeholder="Пароль" name="password">
                         </div>
                     </div>
                     <div class="window_line_4">
@@ -96,7 +96,7 @@
                 </div>
                 <div class="wrapper_button_header_def">
                     <?
-                    if($_SESSION["isAuth"] != 0) {
+                    if(!empty($_SESSION) and $_SESSION["isAuth"] != 0) {
                         echo '<a href="template.php?action=profile.php"><button class="log_in">В личный кабинет</button></a>';
                     }
                     else echo '
@@ -116,7 +116,7 @@
                 </div>
                 <div class="line_3">
                     <?
-                    if($_SESSION["isAuth"] != 0) {
+                    if(!empty($_SESSION) and $_SESSION["isAuth"] != 0) {
                         echo '<a href="template.php?action=profile.php"><button class="log_in">В личный кабинет</button></a>';
                     }
                     else echo '

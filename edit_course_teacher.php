@@ -3,7 +3,7 @@ if(!PagesNavigation::isAdmin()){
     PagesNavigation::redirectUser("template.php?action=profile.php");
 }
 
-if(isset($_POST) and $_POST["action"] == "create_course") {
+if(!empty($_POST) and $_POST["action"] == "create_course") {
     global $user;
     isset($_POST["futureCourse"]) ? $future = 0 : $future = 1;
     if(!$user->createCourse($_POST["courseName"], $_POST["shortDesk"], $_POST["fullDesk"], $future)){
@@ -11,9 +11,46 @@ if(isset($_POST) and $_POST["action"] == "create_course") {
     }
 }
 
-if(isset($_POST) and $_POST["action"] == "edit_course") {
+if(!empty($_POST) and $_POST["action"] == "edit_course") {
     global $user;
     $user->updateCourse($_POST["course_name"], $_POST["course_desc"], $_POST["course_fulldesc"], $_POST["course_id"]);
+}
+
+if(!empty($_POST) and $_POST["action"] == "delete") {
+    global $db;
+    $course_list = User::GetCourseList();
+    $delete_courses_list = array();
+//    for($courseNumber = 0;$courseNumber <= count($course_list); $courseNumber++){
+//        for($checkboxValues = 0; $checkboxValues <= count($_POST)-1; $checkboxValues++){
+//            if($course_list[$courseNumber][0] == $_POST[strval($checkboxValues)]){
+//                array_push($delete_courses_list, $checkboxValues);
+//            }
+//        }
+//    }
+    for($value = 0; $value <= max(array_column($course_list, 0)); $value++){
+        //print(max(array_column($course_list, 0)));
+        if($_POST[strval($value)] == "on"){
+            array_push($delete_courses_list,$value);
+        }
+    }
+    //print_r($_POST);
+    //print_r($delete_courses_list);
+    for($items = 0; $items <= count($delete_courses_list)-1; $items++){
+        //$db->query("alter table `subject` nocheck constraint all");
+        $query = $db->prepare("DELETE FROM `subject` WHERE `id_Subject` = ?");
+        $query2 = $db->prepare("DELETE FROM `subject_user` WHERE `id_Subject` = ?");
+        if($query) {
+            $intval = intval($delete_courses_list[$items]);
+            $query->bind_param("i", $intval);
+            $query2->bind_param("i", $intval);
+            $query2->execute();
+            $query->execute();
+        }
+        //$db->query("alter table `subject` check constraint all");
+        if($db->error){
+            echo $db->error;
+        }
+    }
 }
 ?>
 
@@ -38,17 +75,8 @@ if(isset($_POST) and $_POST["action"] == "edit_course") {
                             <th class="t_position">Изображение</th>
                         </tr>
                         <!--<form action="template.php?action=edit_module_teacher" method="post">-->
-                        <tr class="tr_modules">
-                            <td class="checkbox_t">
-                                <label class="custom-checkbox_dark">
-                                    <input type="checkbox" id="checkbox1">
-                                    <span class="checkmark_dark"></span>
-                                </label>
-                            </td>
-                            <td class="t_module">Сети TCP/IP</td>
-                            <td class="t_numb_lessons">10</td>
-                            <td class="t_position"><div class="position_list_wrapper"><p>3</p><div class="wrapper_action"><button class="edit" onclick="toggleBlockEdit()">Изменить</button></div></td>
-                        </tr>
+                        <form action="template.php?action=edit_course_teacher.php" method="post">
+                            <input type="hidden" name="action" value="delete">
                         <?php
                         $courseList = User::GetCourseList();
                         for($courseNumber = 0;$courseNumber < count($courseList);$courseNumber++){
@@ -56,7 +84,7 @@ if(isset($_POST) and $_POST["action"] == "edit_course") {
                             <tr class="tr_modules">
                             <td class="checkbox_t">
                                 <label class="custom-checkbox_dark">
-                                    <input type="checkbox" id="checkbox1">
+                                    <input type="checkbox" id="checkbox1" name="'.$courseList[$courseNumber][0].'">
                                     <span class="checkmark_dark"></span>
                                 </label>
                             </td>
@@ -72,16 +100,19 @@ if(isset($_POST) and $_POST["action"] == "edit_course") {
 
                     </table>
                     <div class="wrapper_add_del">
-                        <button class="wrapper_add" onclick="toggleBlockAdd()">
+                        <button class="wrapper_add" onclick="toggleBlockAdd()" type="button">
                             <img src="inc/img/add_icon.png" alt="" class="add_icon">
                             Создать новый курс
                         </button>
 
                         <a class="wrapper_del">
-                            <img src="inc/img/trash.png" alt="" class="trash_icon">
-                            Удалить выбранных
+                            <button type="submit" style="background: none; border: none;">
+                                <img src="inc/img/trash.png" alt="" class="trash_icon">
+                                Удалить выбранных
+                            </button>
                         </a>
                     </div>
+                </form>
 
                     <div id="myBlock" class="hidden_block">
                         <form action="" method="POST">
@@ -102,7 +133,7 @@ if(isset($_POST) and $_POST["action"] == "edit_course") {
                             </div>
                             <div class="wrapper_buttons_select _edit_inp">
                                 <button class="filled_btn big" style="color: #ffffff;" type="submit">Изменить</button>
-                                <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;">Отмена</button>
+                                <button class="unfilled_bgtn big _ed_btn" style="margin-left: 20px; width: 140px;" type="button">Отмена</button>
                             </div>
                         </form>
                     </div>

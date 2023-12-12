@@ -101,7 +101,6 @@ session_start();
                     for($i=0; $i<=count($pagesNav->ElementsList); $i++){
                         if($_GET["action"] == $pagesNav->ElementsList[$i]) {
                         $courses_names_list = $user->getAllCoursesNames();
-                        //print_r($courses_names_list);
                             echo '<button class="button_menu butt__" id="toggleButton" onclick="toggleDropdown(\'arrow_list\')"><div class="arrow" id="arrow_button"></div></button>
                                     <div class="dropdown-container">
                                       <ul id="dropdownList">';

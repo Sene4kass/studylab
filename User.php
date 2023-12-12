@@ -38,16 +38,20 @@ class User
     }
 
     public function loginUser($login,$password){
-        if(isset($_SESSION) and $_SESSION["isAuth"] == 1){
+        if(!empty($_SESSION) and $_SESSION["isAuth"] == 1){
             return false;
         }
         $login = $this->stringValidation($login);
         $password = $this->stringValidation($password);
         global $db;
         $query = $db->prepare("SELECT * FROM `user` WHERE `Login` = ? OR `E_mail` = ?");
-        $query->bind_param("ss", $login, $login);
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->bind_param("ss", $login, $login);
+            $query->execute();
+            $result = $query->get_result();
+        }
+        
+        
         if ($result->num_rows > 0) {
             $userInfo = $result->fetch_assoc();
             $passHash = hash("sha256", $password);
@@ -80,15 +84,18 @@ class User
     private function isAccountCreated($login, $email) {
         global $db;
         $query = $db->prepare("SELECT * FROM `user` WHERE `Login` = ? OR `E_mail` = ?");
-        $query->bind_param("ss", $login, $email);
-        $query->execute();
-        $query->store_result();
-        $this->logToFile($query->num_rows, "num_rows.txt");
-        if($query->num_rows == 0) {
-            return false;
-        }
-        else {
-            return true;
+        if($query) {
+            $query->bind_param("ss", $login, $email);
+            $query->execute();
+            $query->store_result();
+        
+            $this->logToFile($query->num_rows, "num_rows.txt");
+            if($query->num_rows == 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     }
 
@@ -102,20 +109,26 @@ class User
     function createCourse($name, $desc, $fullDesk, $future){
         global $db;
         $query = $db->prepare("INSERT INTO `subject`(`Name`, `Short_description`, `Full_description`, `Status`) VALUES (?,?,?,?)");
-        $query->bind_param("sssi",$name, $desc, $fullDesk, $future);
-        $query->execute();
+        if($query) {
+            $query->bind_param("sssi",$name, $desc, $fullDesk, $future);
+            $query->execute();
+        }
 
         $id_User = $_SESSION["id"];
 
         $query = $db->prepare("SELECT * FROM `subject` WHERE `Name` = ".$name."");
-        $query->execute();
-        $result = $query->get_result();
-        $subject = $result->fetch_assoc();
+        if($query) {
+            $query->execute();
+            $result = $query->get_result();
+            $subject = $result->fetch_assoc();
+            }
         $id_Subject = $subject["id_Subject"];
 
         $query = $db->prepare("INSERT INTO `subject_user`(`id_Subject`, `id_User`) VALUES (?,?)");
-        $query->bind_param("ii",$id_Subject, $id_User);
-        $query->execute();
+        if($query) {
+            $query->bind_param("ii",$id_Subject, $id_User);
+            $query->execute();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -126,8 +139,10 @@ class User
         global $db;
         $course_id = User::GetCourseByName($_GET["course"]);
         $query = $db->prepare("INSERT INTO `module`(`Module_name`,`Position_in_list`, `View_status`, `Access_status`, `id_Subject`) VALUES (?,?,?,?,?)");
-        $query->bind_param("siiii",$name, $position, $view_status, $access_status, $course_id["id_Subject"]);
-        $query->execute();
+        if($query) {
+            $query->bind_param("siiii",$name, $position, $view_status, $access_status, $course_id["id_Subject"]);
+            $query->execute();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -136,8 +151,10 @@ class User
     function updateModule($name, $position, $view_status, $access_status, $id){
         global $db;
         $query = $db->prepare("UPDATE `module` SET `Module_name` = ?, `Position_in_list` = ?, `View_status` = ?, `Access_status` = ? WHERE `id_Module` = ?");
-        $query->bind_param("siiii",$name, $position, $view_status, $access_status, $id);
-        $query->execute();
+        if($query) {
+            $query->bind_param("siiii",$name, $position, $view_status, $access_status, $id);
+            $query->execute();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -146,8 +163,10 @@ class User
     function updateCourse($name, $desc, $fulldesc, $id){
         global $db;
         $query = $db->prepare("UPDATE `subject` SET `Name` = ?, `Short_description` = ?, `Full_description` = ? WHERE `id_Subject` = ?");
-        $query->bind_param("sssi",$name, $desc, $fulldesc, $id);
-        $query->execute();
+        if($query) {
+            $query->bind_param("sssi",$name, $desc, $fulldesc, $id);
+            $query->execute();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -159,9 +178,11 @@ class User
         // есть ли у учителя созданные курсы
         global $db;
         $query = $db->prepare("SELECT * FROM `subject_user` WHERE `id_User` = ?");
-        $query->bind_param("s", $_SESSION["id"]);
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->bind_param("s", $_SESSION["id"]);
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -178,8 +199,10 @@ class User
     public static function GetCourseList(){
         global $db;
         $query = $db->prepare("SELECT * FROM `subject`");
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($result->num_rows == 0) {
             return null;
         }
@@ -193,9 +216,11 @@ class User
     public static function GetCourse($id) {
         global $db;
         $query = $db->prepare("SELECT * FROM `subject` WHERE `id_Subject` = ?");
-        $query->bind_param("i", $id);
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->bind_param("i", $id);
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -209,10 +234,12 @@ class User
     }
     public static function GetCourseByName($name) {
         global $db;
-        $query = $db->prepare("SELECT * FROM `subject` WHERE `Name` = ?");
-        $query->bind_param("s", $name);
-        $query->execute();
-        $result = $query->get_result();
+        $query = $db->prepare("SELECT * FROM `subject` WHERE `Name` = ?"); 
+        if($query) {
+            $query->bind_param("s", $name);
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -228,8 +255,10 @@ class User
     public static function getAllCoursesNames() {
         global $db;
         $query = $db->prepare("SELECT `Name` FROM `subject`");
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -245,9 +274,11 @@ class User
     public static function getModulesByCourse($course_name) {
         global $db;
         $query = $db->prepare("SELECT `id_Subject` FROM `subject` WHERE `Name` = ?");
-        $query->bind_param("s", $course_name);
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->bind_param("s", $course_name);
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -259,9 +290,11 @@ class User
             $course_ID = $course_ID[0];
         }
         $query = $db->prepare("SELECT * FROM `module` WHERE `id_Subject` = ?");
-        $query->bind_param("i", $course_ID);
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->bind_param("i", $course_ID);
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
@@ -277,9 +310,11 @@ class User
     public function getLessonsByModule($moduleID) {
         global $db;
         $query = $db->prepare("SELECT COUNT(*) FROM `lesson` WHERE `id_Module` = ?");
-        $query->bind_param("i", $moduleID);
-        $query->execute();
-        $result = $query->get_result();
+        if($query) {
+            $query->bind_param("i", $moduleID);
+            $query->execute();
+            $result = $query->get_result();
+        }
         if($db->error){
             echo $db->error;
         }
